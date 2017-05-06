@@ -115,3 +115,16 @@ while curListLen > 0 :
     curListPos += 1
     #update list length to end loop at 0 ---- inelegant but works?
     curListLen -= 1
+
+#Deletes column in format delete_column(ws, 1) #1 = A (First column)
+"""
+def delete_column(ws, delete_column):
+    if isinstance(delete_column, str):
+        delete_column = openpyxl.cell.column_index_from_string(delete_column)
+    assert delete_column >= 1, "Column numbers must be 1 or greater"
+
+    for column in range(delete_column, ws.max_column + 1):
+        for row in range(1, ws.max_row + 1):
+            ws.cell(row=row, column=column).value = \
+                    ws.cell(row=row, column=column+1).value
+"""
