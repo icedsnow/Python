@@ -297,8 +297,10 @@ for i in range(2, c_rowmax):
         #m_datecell
         #m_ws.cell(row=k, column=m_get_date).value
         #Compare Target_id
-###     TODO: Log both results to markup
+###     FF7CE = Red
         if c_ws.cell(row=i, column=c_get_tid).value == m_ws.cell(row=k, column=m_get_tid).value:
+            #Counter - Adds 1 if c_cell has been colored while moving down this if:, if 0 at end color markup sheet result neutral indicating no change.
+            cells_colored = 0
             #Currently just logs:
             #TODO: Implement conditional formatting for positive catch
             #TODO2: if positive result, move on to check date, team, anomaly, etc.
@@ -315,89 +317,213 @@ for i in range(2, c_rowmax):
                 #Date
                 if c_ws.cell(row=i, column=c_get_date).value != m_ws.cell(row=k, column=m_get_date).value:
                     c_ws.cell(row=i, column=c_get_date).fill = PatternFill("solid", fgColor="FFC7CE")
-                #Markup Results
+                    #Markup Results
                     c_markws.cell(row=v, column=markcol_date).value = c_ws.cell(row=i, column=c_get_date).value
                     c_markws.cell(row=j, column=markcol_date).value = m_ws.cell(row=k, column=m_get_date).value
                     #c_markws.cell(row=v, column=markcol_date).fill = PatternFill("solid", fgColor="B3B3B3")
+                    if m_ws.cell(row=k, column=m_get_date).value == None or m_ws.cell(row=k, column=m_get_date).value == '':
+                        c_markws.cell(row=j, column=markcol_date).value = 'No Value'
+                    if c_ws.cell(row=i, column=c_get_date).value == None or c_ws.cell(row=i, column=c_get_date).value == '':
+                        c_markws.cell(row=v, column=markcol_date).value = 'No Value'
+                    cells_colored +=1
+                    
             except TypeError:
                 pass
+            except ValueError:
+                c_ws.cell(row=i, column=c_get_date).fill = PatternFill("solid", fgColor="FFC7CE")
+                c_markws.cell(row=v, column=markcol_date).value = c_ws.cell(row=i, column=c_get_date).value
+                c_markws.cell(row=j, column=markcol_date).value = m_ws.cell(row=k, column=m_get_date).value
+                if m_ws.cell(row=k, column=m_get_date).value == None or m_ws.cell(row=k, column=m_get_date).value == '':
+                    c_markws.cell(row=j, column=markcol_date).value = 'No Value'
+                if c_ws.cell(row=i, column=c_get_date).value == None or c_ws.cell(row=i, column=c_get_date).value == '':
+                    c_markws.cell(row=v, column=markcol_date).value = 'No Value'
+                cells_colored +=1
 
             try:
                 #Ch2
                 if float(c_ws.cell(row=i, column=c_get_ch2).value) != float(m_ws.cell(row=k, column=m_get_ch2).value):
                     c_ws.cell(row=i, column=c_get_ch2).fill = PatternFill("solid", fgColor="FFC7CE")
-                #Markup Results
+                    #Markup Results
                     c_markws.cell(row=v, column=markcol_ch2).value = c_ws.cell(row=i, column=c_get_ch2).value
                     c_markws.cell(row=j, column=markcol_ch2).value = m_ws.cell(row=k, column=m_get_ch2).value
                     #c_markws.cell(row=v, column=markcol_ch2).fill = PatternFill("solid", fgColor="B3B3B3")
+                    if m_ws.cell(row=k, column=m_get_ch2).value == None or m_ws.cell(row=k, column=m_get_ch2).value == '':
+                        c_markws.cell(row=j, column=markcol_ch2).value = 'No Value'
+                    if c_ws.cell(row=i, column=c_get_ch2).value == None or c_ws.cell(row=i, column=c_get_ch2).value == '':
+                        c_markws.cell(row=v, column=markcol_ch2).value = 'No Value'
+                    cells_colored +=1
+                    
             except TypeError:
                 pass
+            except ValueError:
+                c_ws.cell(row=i, column=c_get_ch2).fill = PatternFill("solid", fgColor="FFC7CE")
+                c_markws.cell(row=v, column=markcol_ch2).value = c_ws.cell(row=i, column=c_get_ch2).value
+                c_markws.cell(row=j, column=markcol_ch2).value = m_ws.cell(row=k, column=m_get_ch2).value
+                if m_ws.cell(row=k, column=m_get_ch2).value == None or m_ws.cell(row=k, column=m_get_ch2).value == '':
+                    c_markws.cell(row=j, column=markcol_ch2).value = 'No Value'
+                if c_ws.cell(row=i, column=c_get_ch2).value == None or c_ws.cell(row=i, column=c_get_ch2).value == '':
+                    c_markws.cell(row=v, column=markcol_ch2).value = 'No Value'
+                cells_colored +=1
 
             try:
                 #TODO: Check Anomaly_st?
                 #Anomaly_ty
                 if c_ws.cell(row=i, column=c_get_anomaly_ty).value != m_ws.cell(row=k, column=m_get_anomaly_ty).value:
                     c_ws.cell(row=i, column=c_get_anomaly_ty).fill = PatternFill("solid", fgColor="FFC7CE")
-                #Markup Results
+                    #Markup Results
                     c_markws.cell(row=v, column=markcol_anomaly_ty).value = c_ws.cell(row=i, column=c_get_anomaly_ty).value
                     c_markws.cell(row=j, column=markcol_anomaly_ty).value = m_ws.cell(row=k, column=m_get_anomaly_ty).value
                     #c_markws.cell(row=v, column=markcol_anomaly_ty).fill = PatternFill("solid", fgColor="B3B3B3")
+                    if m_ws.cell(row=k, column=m_get_anomaly_ty).value == None or m_ws.cell(row=k, column=m_get_anomaly_ty).value == '':
+                        c_markws.cell(row=j, column=markcol_anomaly_ty).value = 'No Value'
+                    if c_ws.cell(row=i, column=c_get_anomaly_ty).value == None or c_ws.cell(row=i, column=c_get_anomaly_ty).value == '':
+                        c_markws.cell(row=v, column=markcol_anomaly_ty).value = 'No Value'
+                    cells_colored +=1
+                    
             except TypeError:
                 pass
+            except ValueError:
+                c_ws.cell(row=i, column=c_get_anomaly_ty).fill = PatternFill("solid", fgColor="FFC7CE")
+                c_markws.cell(row=v, column=markcol_anomaly_ty).value = c_ws.cell(row=i, column=c_get_anomaly_ty).value
+                c_markws.cell(row=j, column=markcol_anomaly_ty).value = m_ws.cell(row=k, column=m_get_anomaly_ty).value
+                if m_ws.cell(row=k, column=m_get_anomaly_ty).value == None or m_ws.cell(row=k, column=m_get_anomaly_ty).value == '':
+                    c_markws.cell(row=j, column=markcol_anomaly_ty).value = 'No Value'
+                if c_ws.cell(row=i, column=c_get_anomaly_ty).value == None or c_ws.cell(row=i, column=c_get_anomaly_ty).value == '':
+                    c_markws.cell(row=v, column=markcol_anomaly_ty).value = 'No Value'
+                cells_colored +=1
             
             try:
                 #Count
                 if float(c_ws.cell(row=i, column=c_get_count).value) != float(m_ws.cell(row=k, column=m_get_count).value):
                     c_ws.cell(row=i, column=c_get_count).fill = PatternFill("solid", fgColor="FFC7CE")
-                #Markup Results
+                    #Markup Results
                     c_markws.cell(row=v, column=markcol_count).value = c_ws.cell(row=i, column=c_get_count).value
                     c_markws.cell(row=j, column=markcol_count).value = m_ws.cell(row=k, column=m_get_count).value
                     #c_markws.cell(row=v, column=markcol_count).fill = PatternFill("solid", fgColor="B3B3B3")
+                    if m_ws.cell(row=k, column=m_get_count).value == None or m_ws.cell(row=k, column=m_get_count).value == '':
+                        c_markws.cell(row=j, column=markcol_count).value = 'No Value'
+                    if c_ws.cell(row=i, column=c_get_count).value == None or c_ws.cell(row=i, column=c_get_count).value == '':
+                        c_markws.cell(row=v, column=markcol_count).value = 'No Value'
+                    cells_colored +=1
+                    
             except TypeError:
                 pass
+            except ValueError:
+                c_ws.cell(row=i, column=c_get_count).fill = PatternFill("solid", fgColor="FFC7CE")
+                c_markws.cell(row=v, column=markcol_count).value = c_ws.cell(row=i, column=c_get_count).value
+                c_markws.cell(row=j, column=markcol_count).value = m_ws.cell(row=k, column=m_get_count).value
+                if m_ws.cell(row=k, column=m_get_count).value == None or m_ws.cell(row=k, column=m_get_count).value == '':
+                    c_markws.cell(row=j, column=markcol_count).value = 'No Value'
+                if c_ws.cell(row=i, column=c_get_count).value == None or c_ws.cell(row=i, column=c_get_count).value == '':
+                    c_markws.cell(row=v, column=markcol_count).value = 'No Value'
+                cells_colored +=1
 
             try:
                 #Weight_lb
                 if float(c_ws.cell(row=i, column=c_get_weight_lb).value) != float(m_ws.cell(row=k, column=m_get_weight_lb).value):
                     c_ws.cell(row=i, column=c_get_weight_lb).fill = PatternFill("solid", fgColor="FFC7CE")
-                #Markup Results
+                    #Markup Results
                     c_markws.cell(row=v, column=markcol_weight_lb).value = c_ws.cell(row=i, column=c_get_weight_lb).value
                     c_markws.cell(row=j, column=markcol_weight_lb).value = m_ws.cell(row=k, column=m_get_weight_lb).value
                     #c_markws.cell(row=v, column=markcol_weight_lb).fill = PatternFill("solid", fgColor="B3B3B3")
+                    if m_ws.cell(row=k, column=m_get_weight_lb).value == None or m_ws.cell(row=k, column=m_get_weight_lb).value == '':
+                        c_markws.cell(row=j, column=markcol_weight_lb).value = 'No Value'
+                    if c_ws.cell(row=i, column=c_get_weight_lb).value == None or c_ws.cell(row=i, column=c_get_weight_lb).value == '':
+                        c_markws.cell(row=v, column=markcol_weight_lb).value = 'No Value'        
+                    cells_colored +=1
+                    
             except TypeError:
                 pass
+            except ValueError:
+                c_ws.cell(row=i, column=c_get_weight_lb).fill = PatternFill("solid", fgColor="FFC7CE")
+                c_markws.cell(row=v, column=markcol_weight_lb).value = c_ws.cell(row=i, column=c_get_weight_lb).value
+                c_markws.cell(row=j, column=markcol_weight_lb).value = m_ws.cell(row=k, column=m_get_weight_lb).value
+                if m_ws.cell(row=k, column=m_get_weight_lb).value == None or m_ws.cell(row=k, column=m_get_weight_lb).value == '':
+                    c_markws.cell(row=j, column=markcol_weight_lb).value = 'No Value'
+                if c_ws.cell(row=i, column=c_get_weight_lb).value == None or c_ws.cell(row=i, column=c_get_weight_lb).value == '':
+                    c_markws.cell(row=v, column=markcol_weight_lb).value = 'No Value'
+                cells_colored +=1
 
             try:
                 #depth_in
                 if float(c_ws.cell(row=i, column=c_get_depth_in).value) != float(m_ws.cell(row=k, column=m_get_depth_in).value):
                     c_ws.cell(row=i, column=c_get_depth_in).fill = PatternFill("solid", fgColor="FFC7CE")
-                #Markup Results
+                    #Markup Results
                     c_markws.cell(row=v, column=markcol_depth_in).value = c_ws.cell(row=i, column=c_get_depth_in).value
                     c_markws.cell(row=j, column=markcol_depth_in).value = m_ws.cell(row=k, column=m_get_depth_in).value
                     #c_markws.cell(row=v, column=markcol_depth_in).fill = PatternFill("solid", fgColor="B3B3B3")
+                    if m_ws.cell(row=k, column=m_get_depth_in).value == None or m_ws.cell(row=k, column=m_get_depth_in).value == '':
+                        c_markws.cell(row=j, column=markcol_depth_in).value = 'No Value'
+                    if c_ws.cell(row=i, column=c_get_depth_in).value == None or c_ws.cell(row=i, column=c_get_depth_in).value == '':
+                        c_markws.cell(row=v, column=markcol_depth_in).value = 'No Value'
+                    cells_colored +=1
+                    
             except TypeError:
                 pass
+            except ValueError:
+                c_ws.cell(row=i, column=c_get_depth_in).fill = PatternFill("solid", fgColor="FFC7CE")
+                c_markws.cell(row=v, column=markcol_depth_in).value = c_ws.cell(row=i, column=c_get_depth_in).value
+                c_markws.cell(row=j, column=markcol_depth_in).value = m_ws.cell(row=k, column=m_get_depth_in).value
+                if m_ws.cell(row=k, column=m_get_depth_in).value == None or m_ws.cell(row=k, column=m_get_depth_in).value == '':
+                    c_markws.cell(row=j, column=markcol_depth_in).value = 'No Value'
+                if c_ws.cell(row=i, column=c_get_depth_in).value == None or c_ws.cell(row=i, column=c_get_depth_in).value == '':
+                    c_markws.cell(row=v, column=markcol_depth_in).value = 'No Value'
+                cells_colored +=1
+                
             try:     
                 #offset_in
                 if float(c_ws.cell(row=i, column=c_get_offset_in).value) != float(m_ws.cell(row=k, column=m_get_offset_in).value):
                     c_ws.cell(row=i, column=c_get_offset_in).fill = PatternFill("solid", fgColor="FFC7CE")
-                #Markup Results
+                    #Markup Results
                     c_markws.cell(row=v, column=markcol_offset_in).value = c_ws.cell(row=i, column=c_get_offset_in).value
                     c_markws.cell(row=j, column=markcol_offset_in).value = m_ws.cell(row=k, column=m_get_offset_in).value
                     #c_markws.cell(row=v, column=markcol_offset_in).fill = PatternFill("solid", fgColor="B3B3B3")
+                    if m_ws.cell(row=k, column=m_get_offset_in).value == None or m_ws.cell(row=k, column=m_get_offset_in).value == '':
+                        c_markws.cell(row=j, column=markcol_offset_in).value = 'No Value'
+                    if c_ws.cell(row=i, column=c_get_offset_in).value == None or c_ws.cell(row=i, column=c_get_offset_in).value == '':
+                        c_markws.cell(row=v, column=markcol_offset_in).value = 'No Value'
+                    cells_colored +=1
+                    
             except TypeError:
                 pass
-#            try:       
-#                #offset_dir
-#                if c_ws.cell(row=i, column=c_get_offset_dir).value != m_ws.cell(row=k, column=m_get_offset_dir).value:
-#                    c_ws.cell(row=i, column=c_get_offset_dir).fill = PatternFill("solid", fgColor="FFC7CE")
-#                #Markup Results
-#                    c_markws.cell(row=v, column=markcol_offset_dir).value = c_ws.cell(row=i, column=c_get_offset_dir).value
-#                    c_markws.cell(row=j, column=markcol_offset_dir).value = m_ws.cell(row=k, column=m_get_offset_dir).value
-#                    #c_markws.cell(row=v, column=markcol_offset_dir).fill = PatternFill("solid", fgColor="B3B3B3")
-#            except TypeError:
-#                pass
-            
+            except ValueError:
+                c_ws.cell(row=i, column=c_get_offset_in).fill = PatternFill("solid", fgColor="FFC7CE")
+                c_markws.cell(row=v, column=markcol_offset_in).value = c_ws.cell(row=i, column=c_get_offset_in).value
+                c_markws.cell(row=j, column=markcol_offset_in).value = m_ws.cell(row=k, column=m_get_offset_in).value
+                if m_ws.cell(row=k, column=m_get_offset_in).value == None or m_ws.cell(row=k, column=m_get_offset_in).value == '':
+                    c_markws.cell(row=j, column=markcol_offset_in).value = 'No Value'
+                if c_ws.cell(row=i, column=c_get_offset_in).value == None or c_ws.cell(row=i, column=c_get_offset_in).value == '':
+                    c_markws.cell(row=v, column=markcol_offset_in).value = 'No Value'
+                cells_colored +=1
+                
+            try:       
+                #offset_dir
+                if c_ws.cell(row=i, column=c_get_offset_dir).value != m_ws.cell(row=k, column=m_get_offset_dir).value:
+                    c_ws.cell(row=i, column=c_get_offset_dir).fill = PatternFill("solid", fgColor="FFC7CE")
+                #Markup Results
+                    c_markws.cell(row=v, column=markcol_offset_dir).value = c_ws.cell(row=i, column=c_get_offset_dir).value
+                    c_markws.cell(row=j, column=markcol_offset_dir).value = m_ws.cell(row=k, column=m_get_offset_dir).value
+                    #c_markws.cell(row=v, column=markcol_offset_dir).fill = PatternFill("solid", fgColor="B3B3B3")
+                    if m_ws.cell(row=k, column=m_get_offset_dir).value == None or m_ws.cell(row=k, column=m_get_offset_dir).value == '':
+                        c_markws.cell(row=j, column=markcol_offset_dir).value = 'No Value'
+                    if c_ws.cell(row=i, column=c_get_offset_dir).value == None or c_ws.cell(row=i, column=c_get_offset_dir).value == '':
+                        c_markws.cell(row=v, column=markcol_offset_dir).value = 'No Value'
+                    cells_colored +=1
+                    
+            except TypeError:
+                pass
+            except ValueError:
+                c_ws.cell(row=i, column=c_get_offset_dir).fill = PatternFill("solid", fgColor="FFC7CE")
+                c_markws.cell(row=v, column=markcol_offset_dir).value = c_ws.cell(row=i, column=c_get_offset_dir).value
+                c_markws.cell(row=j, column=markcol_offset_dir).value = m_ws.cell(row=k, column=m_get_offset_dir).value
+                if m_ws.cell(row=k, column=m_get_offset_dir).value == None or m_ws.cell(row=k, column=m_get_offset_dir).value == '':
+                    c_markws.cell(row=j, column=markcol_offset_dir).value = 'No Value'
+                if c_ws.cell(row=i, column=c_get_offset_dir).value == None or c_ws.cell(row=i, column=c_get_offset_dir).value == '':
+                    c_markws.cell(row=v, column=markcol_offset_dir).value = 'No Value'
+                cells_colored +=1
+
+            if cells_colored == 0:
+                c_markws.cell(row=v, column=markcol_tid).fill = PatternFill("solid", fgColor="FFEB9C")
             #increment v odd j even by + 2
             v = v + 2
             j = j + 2
@@ -447,7 +573,8 @@ c_markws_rowmax = int(c_markws_rowmax) + 2
 for k in range(1, 10):
     j = 3
     for i in range(3, c_markws_rowmax):
-        c_markws.cell(row=j, column=k).fill = PatternFill("solid", fgColor="CCFFCC")
+        if c_markws.cell(row=j, column=k).fill != PatternFill("solid", fgColor="FFC7CE"):
+            c_markws.cell(row=j, column=k).fill = PatternFill("solid", fgColor="CCFFCC")
         j = j + 2
 
 
